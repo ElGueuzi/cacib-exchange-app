@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Exchange from './Exchange';
+import NewExchange from './NewExchange';
 
 function App() {
   const initailRate = 1.1;
@@ -20,7 +20,7 @@ function App() {
   return (
     <>
       <h1>Exchange rate : {rate}</h1>
-      <Exchange rate={rate} />
+      <NewExchange rate={rate} />
     </>
   )
 }
