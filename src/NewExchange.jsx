@@ -23,13 +23,26 @@ function NewExchange({rate}) {
     }
 
     useEffect(() => {
-        const rateToApply = fixedRate || rate;
+        let rateToApply;
+        
+        if (fixedRate) {
+            const variation = Math.abs(fixedRate - rate);
+            const threshold = 0.02 * rate;
+            if (variation > threshold) {
+                rateToApply = rate;
+            } else {
+                rateToApply = fixedRate;
+            }
+        } else {
+            rateToApply = rate;
+        }
+        
         switch (currency) {
             case 'EUR':
-                setConverted(amount !== '' ? (amount * rateToApply).toFixed(2) : '');
+                setConverted(amount ? (amount * rateToApply).toFixed(2) : '');
                 break;
             case 'USD':
-                setConverted(amount !== '' ? (amount / rateToApply).toFixed(2) : '');
+                setConverted(amount ? (amount / rateToApply).toFixed(2) : '');
                 break;
             default:
                 // do nothing
@@ -42,8 +55,8 @@ function NewExchange({rate}) {
                 Amount
                 <input type="number" value={amount} onChange={onChangeAmount} />
                 <select value={currency} onChange={onChangeCurrency} >
-                    <option>EUR</option>
-                    <option>USD</option>
+                    <option value="Euro">EUR</option>
+                    <option value="Dollar">USD</option>
                 </select>
             </label>
             <br/>
