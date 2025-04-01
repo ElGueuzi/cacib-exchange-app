@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function Exchange({rate}) {
     const [euro, setEuro] = useState('');
@@ -6,14 +6,16 @@ function Exchange({rate}) {
 
     function onChange(e) {
         const newValue = e.target.value;
-        if (newValue !== '') {
-            setEuro(newValue);
-            setDollar((newValue * rate).toFixed(2));
+        setEuro(newValue);
+    }
+
+    useEffect(() => {
+        if (euro !== '') {
+            setDollar((euro * rate).toFixed(2));
         } else {
-            setEuro('');
             setDollar('');
         }
-    }
+    }, [rate, euro])
 
     return (
         <div>
