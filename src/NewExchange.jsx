@@ -13,6 +13,7 @@ function NewExchange({rate}) {
     function onChangeCurrency(e) {
         const newValue = e.target.value;
         setCurrency(newValue);
+        setAmount(converted);
     }
 
     useEffect(() => {
